@@ -36,6 +36,18 @@
       display: flex; flex-direction: column; align-items: center;
       padding: 80px 24px 56px; text-align: center;
     }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    .hero-video {
+      width: 100%; max-width: 1000px;
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(139,92,246,0.08);
+      background: #0a0a0e;
+    }
+    .hero-video video { display: block; width: 100%; height: auto; }
     .badge {
       display: inline-flex; align-items: center; gap: 6px;
       border: 1px solid rgba(139,92,246,0.4); border-radius: 999px;
@@ -97,8 +109,13 @@
 <body>
   <header>
     <div class="badge"><span class="badge-dot"></span> Interactive Portfolio Demo</div>
-    <h1>Aria<br><span>Restaurant AI</span></h1>
-    <p class="sub">An AI-native restaurant management system — two form factors, one agent. Built as a working prototype to demonstrate AI-driven UX design.</p>
+    <h1 class="sr-only">Aria Restaurant AI</h1>
+    <p class="sr-only">An AI-native restaurant management system, designed across two form factors — one agent that runs live operations on iPad and puts the floor in staff's pocket on iPhone.</p>
+    <div class="hero-video">
+      <video autoplay muted loop playsinline poster="cover.png" aria-label="Aria Restaurant AI — animated preview of the iPad manager and iPhone companion apps">
+        <source src="cover-hero.mp4" type="video/mp4" />
+      </video>
+    </div>
   </header>
 
   <div class="cards">
