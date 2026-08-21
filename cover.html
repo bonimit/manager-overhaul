@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aria Restaurant AI — Cover</title>
+<meta name="description" content="An AI-native restaurant management system, designed across two form factors — one agent that runs live operations on iPad and puts the floor in staff's pocket on iPhone." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    background: #060608;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+  }
+  body {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .scale-wrap {
+    width: 1600px; height: 1000px;
+    transform-origin: center center;
+    flex-shrink: 0;
+  }
+  .stage {
+    position: relative;
+    width: 1600px; height: 1000px;
+    background: #060608;
+  }
+  .grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(139,92,246,0.08) 1px, transparent 1px),
+                       linear-gradient(90deg, rgba(139,92,246,0.08) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: radial-gradient(ellipse 75% 65% at 30% 35%, black 30%, transparent 100%);
+  }
+  .glow1 {
+    position: absolute; width: 900px; height: 900px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,58,237,0.30), transparent 70%);
+    top: -320px; left: -260px; filter: blur(10px);
+    animation: glowPulse 6s ease-in-out infinite;
+  }
+  .glow2 {
+    position: absolute; width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(34,211,238,0.20), transparent 70%);
+    bottom: -280px; right: -180px; filter: blur(10px);
+    animation: glowPulse 7s ease-in-out infinite 1s;
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.75; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.08); }
+  }
+
+  .content {
+    position: relative; z-index: 2;
+    display: flex; align-items: center;
+    width: 100%; height: 100%;
+    padding: 0 0 0 90px;
+  }
+
+  .left { width: 610px; flex-shrink: 0; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(139,92,246,0.45); border-radius: 999px;
+    padding: 7px 16px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    color: #a78bfa; margin-bottom: 34px;
+    background: rgba(139,92,246,0.09);
+    font-weight: 600;
+    opacity: 0;
+    animation: fadeUp 0.7s cubic-bezier(.22,1,.36,1) 0.15s both;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399; animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 92px; font-weight: 700; line-height: 1.02; letter-spacing: -3px;
+    color: #f4f4f5;
+    margin-bottom: 26px;
+  }
+  h1 span { display: block; opacity: 0; }
+  h1 .line1 { animation: fadeUp 0.75s cubic-bezier(.22,1,.36,1) 0.32s both; }
+  h1 .accent {
+    background: linear-gradient(135deg, #a78bfa, #22d3ee 65%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    animation: fadeUp 0.75s cubic-bezier(.22,1,.36,1) 0.48s both;
+  }
+
+  .desc {
+    font-size: 21px; line-height: 1.6; color: #a1a1aa;
+    max-width: 520px; margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.7s cubic-bezier(.22,1,.36,1) 0.68s both;
+  }
+
+  .feats { display: flex; flex-wrap: wrap; gap: 10px; }
+  .feat {
+    font-size: 14px; padding: 8px 16px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8;
+    background: rgba(255,255,255,0.035);
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeUp 0.55s cubic-bezier(.22,1,.36,1) both;
+  }
+  .feat:nth-child(1) { animation-delay: 0.82s; }
+  .feat:nth-child(2) { animation-delay: 0.90s; }
+  .feat:nth-child(3) { animation-delay: 0.98s; }
+  .feat:nth-child(4) { animation-delay: 1.06s; }
+  .feat:nth-child(5) { animation-delay: 1.14s; }
+
+  .right {
+    position: relative;
+    flex: 1; height: 100%;
+  }
+
+  /* ---- iPad (landscape) ---- */
+  .tablet-wrap {
+    position: absolute;
+    left: 30px; top: 180px;
+    width: 760px; height: 577px;
+    opacity: 0;
+    animation: tabletIn 1.05s cubic-bezier(.16,1,.3,1) 0.35s both;
+  }
+  @keyframes tabletIn {
+    from { opacity: 0; transform: translateX(120px) translateY(10px) rotate(-14deg) scale(0.94); }
+    to   { opacity: 1; transform: translateX(0) translateY(0) rotate(-3.5deg) scale(1); }
+  }
+  .tablet-float {
+    width: 100%; height: 100%;
+    animation: floatY 4.6s ease-in-out infinite;
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .tablet {
+    width: 100%; height: 100%;
+    border-radius: 30px;
+    background: #0c0c10;
+    padding: 15px;
+    border: 1px solid rgba(34,211,238,0.35);
+    box-shadow: 0 60px 120px -30px rgba(0,0,0,0.75), 0 0 0 1px rgba(34,211,238,0.08), 0 0 90px rgba(34,211,238,0.12);
+  }
+  .tablet .screen { width: 100%; height: 100%; border-radius: 18px; overflow: hidden; background: #060608; }
+  .tablet .screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+
+  /* ---- iPhone (portrait) ---- */
+  .phone-wrap {
+    position: absolute;
+    right: 24px; bottom: 18px;
+    width: 248px; height: 545px;
+    opacity: 0;
+    animation: phoneIn 1s cubic-bezier(.16,1,.3,1) 0.75s both;
+  }
+  @keyframes phoneIn {
+    from { opacity: 0; transform: translateY(140px) translateX(20px) rotate(20deg) scale(0.92); }
+    to   { opacity: 1; transform: translateY(0) translateX(0) rotate(7deg) scale(1); }
+  }
+  .phone-float {
+    width: 100%; height: 100%;
+    animation: floatY 5.2s ease-in-out infinite 0.4s;
+  }
+  .phone {
+    width: 100%; height: 100%;
+    border-radius: 44px;
+    background: #0c0c10;
+    padding: 14px;
+    border: 1px solid rgba(139,92,246,0.45);
+    box-shadow: 0 50px 100px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(139,92,246,0.12), 0 0 90px rgba(124,58,237,0.24);
+  }
+  .phone .screen { width: 100%; height: 100%; border-radius: 32px; overflow: hidden; background: #060608; }
+  .phone .screen img { width: 100%; height: 100%; object-fit: contain; object-position: top; display: block; }
+  .phone .notch {
+    position: absolute; top: 13px; left: 50%; transform: translateX(-50%);
+    width: 86px; height: 21px; background: #0c0c10; border-radius: 12px; z-index: 3;
+  }
+
+  .tag-cyan, .tag-purple {
+    position: absolute; z-index: 4;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 8px 14px; border-radius: 10px;
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    animation: fadeUp 0.6s cubic-bezier(.22,1,.36,1) both;
+  }
+  .tag-cyan { top: 140px; left: 30px; color: #67e8f9; background: rgba(6,6,8,0.75); border: 1px solid rgba(34,211,238,0.4); animation-delay: 1.35s; }
+  .tag-purple { bottom: 40px; right: 40px; color: #c4b5fd; background: rgba(6,6,8,0.75); border: 1px solid rgba(139,92,246,0.45); animation-delay: 1.55s; }
+
+  footer {
+    position: absolute; bottom: 34px; left: 90px; z-index: 3;
+    font-size: 14px; color: #52525b; letter-spacing: 0.3px;
+    opacity: 0;
+    animation: fadeUp 0.6s cubic-bezier(.22,1,.36,1) 1.6s both;
+  }
+  footer span { color: #71717a; }
+</style>
+</head>
+<body>
+  <div class="scale-wrap" id="scaleWrap">
+    <div class="stage">
+      <div class="grid"></div>
+      <div class="glow1"></div>
+      <div class="glow2"></div>
+
+      <div class="content">
+        <div class="left">
+          <div class="badge"><span class="dot"></span> Interactive Portfolio Demo</div>
+          <h1><span class="line1">Aria</span><span class="accent">Restaurant AI</span></h1>
+          <p class="desc">An AI-native restaurant management system, designed across two form factors — one agent that runs live operations on iPad and puts the floor in staff's pocket on iPhone.</p>
+          <div class="feats">
+            <span class="feat">Multi-venue Analytics</span>
+            <span class="feat">Live Floor Ops</span>
+            <span class="feat">Voice AI</span>
+            <span class="feat">Reputation Mgmt</span>
+            <span class="feat">Payment Flow</span>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="tag-cyan">iPad · Manager</div>
+          <div class="tablet-wrap">
+            <div class="tablet-float">
+              <div class="tablet">
+                <div class="screen"><img src="assets/cover-ipad.png" alt="Aria iPad manager dashboard" /></div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone-float">
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="screen"><img src="assets/cover-mobile.png" alt="Aria iPhone reservations view" /></div>
+              </div>
+            </div>
+          </div>
+          <div class="tag-purple">iPhone · Floor Staff</div>
+        </div>
+      </div>
+
+      <footer><span>Built with React</span> · AI powered by Claude · All data is fictional</footer>
+    </div>
+  </div>
+
+  <script>
+    function fitStage() {
+      var s = Math.min(window.innerWidth / 1600, window.innerHeight / 1000);
+      document.getElementById('scaleWrap').style.transform = 'scale(' + s + ')';
+    }
+    fitStage();
+    window.addEventListener('resize', fitStage);
+  </script>
+</body>
+</html>
